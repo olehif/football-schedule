@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Football schedule</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nanoajax/0.4.3/nanoajax.min.js"></script>
+</head>
+<body>
+  <script>
+    nanoajax.ajax({url: '/fixtures.json', method: 'GET'}, function (code, responseText, request) {
+      if(code === 200) {
+        JSON.parse(responseText).forEach(function(fixture) {
+          var table = document.getElementById('fixtures');
+          var newRow = table.insertRow();
+          newRow.insertCell(0).appendChild(document.createTextNode(fixture.away_team_score));
+          newRow.insertCell(0).appendChild(document.createTextNode(fixture.home_team_score));
+          newRow.insertCell(0).appendChild(document.createTextNode(fixture.date));
+          newRow.insertCell(0).appendChild(document.createTextNode(fixture.away_team_name));
+          newRow.insertCell(0).appendChild(document.createTextNode(fixture.home_team_name));
+        })
+      }
+    })
+  </script>
+
+  <table id='fixtures'>
+    <tr>
+      <th>Home Team</th>
+      <th>Away Team</th>
+      <th>Date</th>
+      <th>Home Team Score</th>
+      <th>Away Team Score</th>
+    </tr>
+  </table>
+
+</body>
+</html>
